@@ -9,7 +9,7 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><linearGradient id='bg' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%2334C759'/><stop offset='100%' stop-color='%2330B350'/></linearGradient></defs><rect width='512' height='512' rx='120' fill='url(%23bg)'/><g transform='translate(256,220)' stroke='white' stroke-width='12' fill='none' stroke-linecap='round'><path d='M-160,0 Q-160,160 0,160 Q160,160 160,0' fill='rgba(255,255,255,.15)'/><path d='M-140,20 L140,20' stroke-width='8' opacity='.4'/><path d='M-100,55 L100,55' stroke-width='6' opacity='.25'/><path d='M-60,90 L60,90' stroke-width='6' opacity='.25'/></g><g transform='translate(256,150)' fill='none' stroke='white' stroke-width='12' stroke-linecap='round' opacity='.6'><path d='M-100,0 Q-80,-80 0,-90'><animate attributeName='opacity' values='.6;.2;.6' dur='2s' repeatCount='indefinite'/></path><path d='M-30,0 Q-15,-95 0,-110'><animate attributeName='opacity' values='.2;.6;.2' dur='2s' repeatCount='indefinite'/></path><path d='M40,0 Q55,-85 80,-95'><animate attributeName='opacity' values='.4;.1;.4' dur='2s' repeatCount='indefinite'/></path></g></svg>",
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='110' fill='%2334C759'/><text x='256' y='330' font-size='280' text-anchor='middle' font-family='sans-serif'>🍲</text></svg>",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"
