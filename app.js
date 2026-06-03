@@ -1,7 +1,7 @@
 // --- Supabase 配置 ---
 // 在 Supabase 项目设置 → API 中获取以下两个值
-const SUPABASE_URL = 'https://你的项目ID.supabase.co';
-const SUPABASE_KEY = '你的anon_key';
+const SUPABASE_URL = 'https://yaqaxiqtiulfxfpfmxqn.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_E31ZWwgv6HCiCiR3-46pgw_N9Rw1vdO';
 
 // --- State ---
 let currentDate = formatDate(new Date());
