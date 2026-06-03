@@ -30,7 +30,8 @@ async function api(path, options = {}) {
     const body = await res.text().catch(() => '');
     throw new Error(body || `HTTP ${res.status}`);
   }
-  return res.json();
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
 }
 
 // --- DOM refs ---
