@@ -1,0 +1,12 @@
+{
+  "name": "diet-tracker",
+  "version": "1.0.0",
+  "description": "健身每日饮食记录",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
