@@ -314,7 +314,7 @@ $btnAdd.addEventListener('click', async () => {
 
     await api('/meal_records', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         food_id: food.id,
         meal_type: selectedMeal,
