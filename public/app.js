@@ -1,3 +1,8 @@
+// --- Supabase 配置 ---
+// 在 Supabase 项目设置 → API 中获取以下两个值
+const SUPABASE_URL = 'https://你的项目ID.supabase.co';
+const SUPABASE_KEY = '你的anon_key';
+
 // --- State ---
 let currentDate = formatDate(new Date());
 let selectedFood = null;
@@ -13,11 +18,17 @@ function formatDate(d) {
   return `${y}-${m}-${day}`;
 }
 
-async function api(url, options) {
-  const res = await fetch(url, options);
+async function api(path, options = {}) {
+  const url = SUPABASE_URL + '/rest/v1' + path;
+  const headers = {
+    'apikey': SUPABASE_KEY,
+    'Authorization': 'Bearer ' + SUPABASE_KEY,
+    ...options.headers,
+  };
+  const res = await fetch(url, { ...options, headers });
   if (!res.ok) {
-    const body = await res.json().catch(() => ({}));
-    throw new Error(body.error || `HTTP ${res.status}`);
+    const body = await res.text().catch(() => '');
+    throw new Error(body || `HTTP ${res.status}`);
   }
   return res.json();
 }
@@ -71,10 +82,11 @@ function hideFoodGrid() { $foodGrid.classList.remove('visible'); }
 
 async function loadFoodGrid() {
   const kw = $foodSearch.value.trim();
-  const params = new URLSearchParams();
-  if (kw) params.set('search', kw);
-  if (selectedCategory) params.set('category', selectedCategory);
-  const foods = await api(`/api/foods?${params.toString()}`);
+  let query = 'select=*';
+  if (kw) query += '&name=ilike.*' + encodeURIComponent(kw) + '*';
+  if (selectedCategory) query += '&category=eq.' + encodeURIComponent(selectedCategory);
+  query += '&limit=50';
+  const foods = await api(`/foods?${query}`);
   renderFoodGrid(foods);
 }
 
@@ -147,7 +159,8 @@ function selectFood(food) {
 
 // --- Category filters ---
 async function loadCategories() {
-  const cats = await api('/api/foods/categories');
+  const rows = await api('/foods?select=category');
+  const cats = [...new Set(rows.map(r => r.category))];
   const all = ['', ...cats];
   const labels = { '': '全部', '蛋奶': '蛋奶', '肉类': '肉类', '水产': '水产', '豆制品': '豆制品', '主食': '主食', '蔬菜': '蔬菜', '坚果': '坚果', '补剂': '补剂' };
   $categoryFilters.innerHTML = all.map(c =>
@@ -294,13 +307,18 @@ $btnAdd.addEventListener('click', async () => {
   if (!grams || grams <= 0) { alert('请输入有效的数值'); return; }
 
   try {
-    await api('/api/records', {
+    const food = selectedFood;
+    const effective = food.unit_weight ? grams * food.unit_weight : grams;
+    const protein_grams = Math.round(food.protein * effective) / 100;
+
+    await api('/meal_records', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
       body: JSON.stringify({
-        food_id: selectedFood.id,
+        food_id: food.id,
         meal_type: selectedMeal,
         grams,
+        protein_grams,
         record_date: currentDate,
       }),
     });
@@ -326,7 +344,7 @@ $btnAdd.addEventListener('click', async () => {
 async function deleteRecord(id) {
   if (!confirm('确定删除这条记录吗？')) return;
   try {
-    await api(`/api/records/${id}`, { method: 'DELETE' });
+    await api(`/meal_records?id=eq.${id}`, { method: 'DELETE' });
     await loadPage();
   } catch (e) {
     alert('删除失败: ' + e.message);
@@ -360,7 +378,7 @@ function renderRecords(records) {
       </div>`;
     for (const r of items) {
       html += `<div class="record-item">
-        <span class="record-food">${r.food_name}<span class="food-cat">${r.food_category}</span></span>
+        <span class="record-food">${r.foods?.name || '(已删除)'}<span class="food-cat">${r.foods?.category || ''}</span></span>
         <span class="record-grams">${r.grams}g</span>
         <span class="record-protein">${r.protein_grams.toFixed(1)}g</span>
         <button class="record-del" onclick="deleteRecord(${r.id})" title="删除">×</button>
@@ -389,11 +407,19 @@ function renderProgress(totalProtein) {
 // --- Load page ---
 async function loadPage() {
   try {
-    const [records, summary] = await Promise.all([
-      api(`/api/records?date=${encodeURIComponent(currentDate)}`),
-      api(`/api/records/summary?date=${encodeURIComponent(currentDate)}`),
-    ]);
-    renderProgress(summary.total_protein);
+    const date = encodeURIComponent(currentDate);
+    const records = await api(`/meal_records?select=*,foods(name,category)&record_date=eq.${date}&order=meal_type.asc,created_at.asc`);
+    const summaryRows = await api(`/meal_records?select=meal_type,protein_grams,grams&record_date=eq.${date}`);
+
+    const byMeal = {};
+    let total = 0;
+    for (const r of summaryRows) {
+      if (!byMeal[r.meal_type]) byMeal[r.meal_type] = { count: 0, total_protein: 0 };
+      byMeal[r.meal_type].count++;
+      byMeal[r.meal_type].total_protein += r.protein_grams;
+      total += r.protein_grams;
+    }
+    renderProgress(Math.round(total * 10) / 10);
     renderRecords(records);
   } catch (e) {
     console.error('加载失败:', e);
