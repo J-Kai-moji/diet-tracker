@@ -166,7 +166,6 @@ body {
   -webkit-tap-highlight-color: transparent;
   transition: color 0.2s;
   font-family: inherit;
-  pointer-events: none;
 }
 
 .meal-slider-btn.active {
