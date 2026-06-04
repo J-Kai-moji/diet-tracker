@@ -16,13 +16,11 @@ const foods = [
   { id: 9,  name: '猪里脊',         category: '肉类',   protein: 19.6, fat: 7.9,  carbs: 0,    calories: 150, is_builtin: 1 },       // 猪肉（里脊）
   { id: 10, name: '猪瘦肉',         category: '肉类',   protein: 20.3, fat: 6.2,  carbs: 1.5,  calories: 143, is_builtin: 1 },       // 猪肉（瘦）
   { id: 11, name: '瘦羊肉',         category: '肉类',   protein: 20.5, fat: 3.9,  carbs: 0.2,  calories: 118, is_builtin: 1 },       // 羊肉（fat 4g）
-  { id: 12, name: '鸭胸肉',         category: '肉类',   protein: 15.0, fat: 1.5,  carbs: 4.0,  calories: 90,  is_builtin: 1 },       // 鸭胸脯肉
 
   // --- 水产 ---
   { id: 13, name: '三文鱼',         category: '水产',   protein: 17.2, fat: 7.8,  carbs: 0,    calories: 139, is_builtin: 1 },       // 鲑鱼[三文鱼]
   { id: 14, name: '虾仁',           category: '水产',   protein: 18.6, fat: 0.8,  carbs: 0.2,  calories: 85,  is_builtin: 1 },       // — 通用参考值
   { id: 15, name: '金枪鱼(水浸)',   category: '水产',   protein: 23.5, fat: 0.6,  carbs: 0,    calories: 99,  is_builtin: 1 },       // 金枪鱼（盐水浸）
-  { id: 16, name: '鸡胗',           category: '肉类',   protein: 19.2, fat: 2.8,  carbs: 4.0,  calories: 118, is_builtin: 1 },       // 鸡肫[鸡胗]
 
   // --- 豆制品 ---
   { id: 17, name: '豆浆',           category: '豆制品', protein: 3.0,  fat: 1.6,  carbs: 1.2,  calories: 31,  is_builtin: 1, unit: 'ml' }, // 豆浆
@@ -52,6 +50,7 @@ const foods = [
 
   // --- 补剂 ---
   { id: 35, name: '乳清蛋白粉',     category: '补剂',   protein: 80.0, fat: 3.0,  carbs: 8.0,  calories: 380, is_builtin: 1 },       // — 通用参考值
+  { id: 37, name: '肌酸',           category: '补剂',   protein: 0,   fat: 0,    carbs: 0,    calories: 0,   is_builtin: 1 },       // 一水肌酸，3-5g/日
 ];
 
 module.exports = { foods };
