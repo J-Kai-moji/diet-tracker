@@ -248,65 +248,10 @@ function selectMeal(meal) {
 }
 
 $mealSlider.addEventListener('click', (e) => {
-  if (dragging) return;
   const btn = e.target.closest('.meal-slider-btn');
   if (!btn) return;
   selectMeal(btn.dataset.meal);
 });
-
-let dragging = false;
-let dragStartX = 0;
-let dragStartIdx = 1;
-
-function getEventX(e) {
-  return e.touches ? e.touches[0].clientX : e.clientX;
-}
-
-function onDragStart(e) {
-  dragging = true;
-  dragStartX = getEventX(e);
-  dragStartIdx = MEAL_KEYS.indexOf(selectedMeal);
-  $mealIndicator.style.transition = 'none';
-}
-
-function onDragMove(e) {
-  if (!dragging) return;
-  e.preventDefault();
-  const dx = getEventX(e) - dragStartX;
-  const btnWidth = $mealSlider.offsetWidth / MEAL_KEYS.length;
-  const idxFloat = dragStartIdx + dx / btnWidth;
-  const clamped = Math.max(0, Math.min(MEAL_KEYS.length - 1, idxFloat));
-
-  const floor = Math.floor(clamped);
-  const ceil = Math.min(MEAL_KEYS.length - 1, Math.ceil(clamped));
-  const frac = clamped - floor;
-
-  const fromBtn = getMealBtn(MEAL_KEYS[floor]);
-  const toBtn = getMealBtn(MEAL_KEYS[ceil]);
-  if (fromBtn && toBtn) {
-    $mealIndicator.style.left = (fromBtn.offsetLeft + (toBtn.offsetLeft - fromBtn.offsetLeft) * frac) + 'px';
-    $mealIndicator.style.width = (fromBtn.offsetWidth + (toBtn.offsetWidth - fromBtn.offsetWidth) * frac) + 'px';
-  }
-
-  const nearestIdx = Math.round(clamped);
-  if (nearestIdx !== MEAL_KEYS.indexOf(selectedMeal)) {
-    selectedMeal = MEAL_KEYS[nearestIdx];
-    updateMealActive(selectedMeal);
-  }
-}
-
-function onDragEnd() {
-  if (!dragging) return;
-  dragging = false;
-  selectMeal(selectedMeal);
-}
-
-$mealSlider.addEventListener('mousedown', onDragStart);
-$mealSlider.addEventListener('touchstart', onDragStart, { passive: true });
-document.addEventListener('mousemove', onDragMove);
-document.addEventListener('touchmove', onDragMove, { passive: false });
-document.addEventListener('mouseup', onDragEnd);
-document.addEventListener('touchend', onDragEnd);
 
 setIndicator(selectedMeal, false);
 window.addEventListener('resize', () => setIndicator(selectedMeal, false));
