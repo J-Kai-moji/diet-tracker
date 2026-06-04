@@ -9,6 +9,7 @@ let selectedFood = null;
 let selectedMeal = 'lunch';
 let selectedCategory = '';
 let proteinGoal = parseInt(localStorage.getItem('proteinGoal') || '120', 10);
+let foodsMap = {}; // id → { unit, unit_weight, name, category }
 
 // --- Helpers ---
 function formatDate(d) {
@@ -156,6 +157,15 @@ function selectFood(food) {
   }
 
   updateProteinPreview();
+}
+
+// --- Bootstrap helpers ---
+async function loadFoodsMap() {
+  const foods = await api('/foods?select=id,name,category,unit,unit_weight&limit=200');
+  foodsMap = {};
+  for (const f of foods) {
+    foodsMap[f.id] = { unit: f.unit || 'g', unit_weight: f.unit_weight, name: f.name, category: f.category };
+  }
 }
 
 // --- Category filters ---
@@ -378,9 +388,10 @@ function renderRecords(records) {
         <span class="meal-subtotal">${subtotal.toFixed(1)}g 蛋白质</span>
       </div>`;
     for (const r of items) {
+      const food = foodsMap[r.food_id] || {};
       html += `<div class="record-item">
-        <span class="record-food">${r.foods?.name || '(已删除)'}<span class="food-cat">${r.foods?.category || ''}</span></span>
-        <span class="record-grams">${r.grams}g</span>
+        <span class="record-food">${food.name || '(已删除)'}<span class="food-cat">${food.category || ''}</span></span>
+        <span class="record-grams">${r.grams}${food.unit || 'g'}</span>
         <span class="record-protein">${r.protein_grams.toFixed(1)}g</span>
         <button class="record-del" onclick="deleteRecord(${r.id})" title="删除">×</button>
       </div>`;
@@ -409,7 +420,7 @@ function renderProgress(totalProtein) {
 async function loadPage() {
   try {
     const date = encodeURIComponent(currentDate);
-    const records = await api(`/meal_records?select=*,foods(name,category)&record_date=eq.${date}&order=meal_type.asc,created_at.asc`);
+    const records = await api(`/meal_records?select=*&record_date=eq.${date}&order=meal_type.asc,created_at.asc`);
     const summaryRows = await api(`/meal_records?select=meal_type,protein_grams,grams&record_date=eq.${date}`);
 
     const byMeal = {};
@@ -428,5 +439,7 @@ async function loadPage() {
 }
 
 // --- Bootstrap ---
-loadCategories();
-loadPage();
+loadFoodsMap().then(() => {
+  loadCategories();
+  loadPage();
+});
