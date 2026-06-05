@@ -1,6 +1,10 @@
 /* ===== Reset & Base ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+:root {
+  color-scheme: dark;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
     "PingFang SC", "Hiragino Sans GB", "Helvetica Neue", sans-serif;
@@ -75,7 +79,11 @@ body {
   color: #F0EEEC;
   outline: none;
   -webkit-appearance: none;
-  color-scheme: dark;
+}
+
+.date-picker::-webkit-calendar-picker-indicator {
+  filter: invert(0.6) sepia(1) saturate(5) hue-rotate(330deg);
+  cursor: pointer;
 }
 
 .date-picker:focus { background: #2A2A2A; }
