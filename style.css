@@ -115,7 +115,7 @@ body {
 
 .progress-bar-fill {
   height: 100%;
-  background: #0A554A;
+  background: #14B8A6;
   border-radius: 4px;
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s;
 }
@@ -144,7 +144,7 @@ body {
   position: absolute;
   top: 3px;
   height: calc(100% - 6px);
-  background: #0A554A;
+  background: #14B8A6;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.4);
   transition: left 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -236,8 +236,8 @@ body {
 .food-card:active { background: #1D2D2B; }
 
 .food-card.selected {
-  border-color: #0A554A;
-  background: rgba(10, 85, 74, 0.15);
+  border-color: #14B8A6;
+  background: rgba(20, 184, 166, 0.15);
 }
 
 .food-card-name {
@@ -256,7 +256,7 @@ body {
 .food-card-protein {
   font-size: 0.78rem;
   font-weight: 600;
-  color: #2DD4BF;
+  color: #4ADE80;
 }
 
 .food-grid-empty {
@@ -292,7 +292,7 @@ body {
 }
 
 .cat-btn:active { transform: scale(0.95); }
-.cat-btn.active { background: #0A554A; color: #E0E8E5; }
+.cat-btn.active { background: #14B8A6; color: #E0E8E5; }
 
 /* Grams input */
 #grams-input {
@@ -323,7 +323,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px 14px;
-  background: rgba(10, 85, 74, 0.12);
+  background: rgba(20, 184, 166, 0.12);
   border-radius: 10px;
   font-size: 0.85rem;
   font-weight: 500;
@@ -332,7 +332,7 @@ body {
 #food-info-name { color: #E0E8E5; font-weight: 600; }
 
 #food-info-protein {
-  color: #2DD4BF;
+  color: #4ADE80;
   font-weight: 700;
 }
 
@@ -345,7 +345,7 @@ body {
 }
 
 .preview strong {
-  color: #2DD4BF;
+  color: #4ADE80;
   font-weight: 700;
   font-size: 1.1rem;
 }
@@ -354,7 +354,7 @@ body {
 .btn-add {
   width: 100%;
   padding: 14px;
-  background: #0A554A;
+  background: #14B8A6;
   color: #E0E8E5;
   border: none;
   border-radius: 12px;
@@ -366,7 +366,7 @@ body {
   letter-spacing: 0.01em;
 }
 
-.btn-add:active { background: #063D37; }
+.btn-add:active { background: #0D9488; }
 
 /* ===== Records Card ===== */
 .records-section {
@@ -412,7 +412,7 @@ body {
 
 .meal-group-header .meal-subtotal {
   font-weight: 500;
-  color: #2DD4BF;
+  color: #4ADE80;
   text-transform: none;
   letter-spacing: 0;
 }
@@ -451,7 +451,7 @@ body {
 }
 
 .record-protein {
-  color: #2DD4BF;
+  color: #4ADE80;
   font-weight: 600;
   min-width: 64px;
   text-align: right;
