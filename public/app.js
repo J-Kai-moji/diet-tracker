@@ -38,7 +38,6 @@ async function api(path, options = {}) {
 // --- DOM refs ---
 const $datePicker = document.getElementById('date-picker');
 const $goalInput = document.getElementById('protein-goal');
-const $foodSearch = document.getElementById('food-search');
 const $categoryFilters = document.getElementById('category-filters');
 const $foodGrid = document.getElementById('food-grid');
 const $gramsInput = document.getElementById('grams-input');
@@ -70,22 +69,12 @@ $goalInput.addEventListener('change', () => {
   loadPage();
 });
 
-// --- Food search ---
-let searchTimer = null;
-
-$foodSearch.addEventListener('input', () => {
-  clearTimeout(searchTimer);
-  searchTimer = setTimeout(() => loadFoodGrid(), 250);
-});
-
 // --- Load food grid ---
 function showFoodGrid() { $foodGrid.classList.add('visible'); }
 function hideFoodGrid() { $foodGrid.classList.remove('visible'); }
 
 async function loadFoodGrid() {
-  const kw = $foodSearch.value.trim();
   let query = 'select=*';
-  if (kw) query += '&name=ilike.*' + encodeURIComponent(kw) + '*';
   if (selectedCategory) query += '&category=eq.' + encodeURIComponent(selectedCategory);
   query += '&limit=50';
   const foods = await api(`/foods?${query}`);
@@ -135,7 +124,6 @@ function selectFood(food) {
   }
 
   selectedFood = food;
-  $foodSearch.value = food.name;
 
   $foodGrid.querySelectorAll('.food-card').forEach(c => {
     c.classList.toggle('selected', parseInt(c.dataset.id) === food.id);
@@ -193,12 +181,10 @@ async function loadCategories() {
       }
       if (cat === '') {
         selectedCategory = '';
-        $foodSearch.value = '';
         loadFoodGrid();
         return;
       }
       selectedCategory = cat;
-      $foodSearch.value = '';
       loadFoodGrid();
     });
   });
@@ -278,7 +264,6 @@ $btnAdd.addEventListener('click', async () => {
         record_date: currentDate,
       }),
     });
-    $foodSearch.value = '';
     $gramsInput.value = '';
     $unitLabel.textContent = 'g';
     $gramsInput.placeholder = '克数';
