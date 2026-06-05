@@ -36,7 +36,9 @@ async function api(path, options = {}) {
 }
 
 // --- DOM refs ---
-const $datePicker = document.getElementById('date-picker');
+const $datePrev = document.getElementById('date-prev');
+const $dateNext = document.getElementById('date-next');
+const $dateText = document.getElementById('date-text');
 const $goalInput = document.getElementById('protein-goal');
 const $categoryFilters = document.getElementById('category-filters');
 const $foodGrid = document.getElementById('food-grid');
@@ -54,14 +56,27 @@ const $progressBar = document.getElementById('progress-bar');
 const $progressText = document.getElementById('progress-text');
 const $progressPct = document.getElementById('progress-pct');
 
+function formatDateDisplay(d) {
+  const m = d.getMonth() + 1;
+  const day = d.getDate();
+  const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+  return `${m}月${day}日 ${weekdays[d.getDay()]}`;
+}
+
+function changeDate(delta) {
+  const d = new Date(currentDate + 'T00:00:00');
+  d.setDate(d.getDate() + delta);
+  currentDate = formatDate(d);
+  $dateText.textContent = formatDateDisplay(d);
+  loadPage();
+}
+
 // --- Init ---
-$datePicker.value = currentDate;
+$dateText.textContent = formatDateDisplay(new Date());
 $goalInput.value = proteinGoal;
 
-$datePicker.addEventListener('change', () => {
-  currentDate = $datePicker.value;
-  loadPage();
-});
+$datePrev.addEventListener('click', () => changeDate(-1));
+$dateNext.addEventListener('click', () => changeDate(1));
 
 $goalInput.addEventListener('change', () => {
   proteinGoal = parseInt($goalInput.value, 10) || 120;
