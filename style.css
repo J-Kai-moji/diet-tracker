@@ -190,23 +190,6 @@ body {
 
 .add-form { display: flex; flex-direction: column; gap: 12px; }
 
-/* Food search */
-#food-search {
-  width: 100%;
-  padding: 12px 14px;
-  border: none;
-  border-radius: 10px;
-  background: #1E1E1E;
-  font-size: 1rem;
-  color: #F0EEEC;
-  outline: none;
-  -webkit-appearance: none;
-  transition: background 0.2s;
-}
-
-#food-search::placeholder { color: #6A6A66; }
-#food-search:focus { background: #2A2A2A; }
-
 /* Food grid */
 .food-grid {
   display: none;
