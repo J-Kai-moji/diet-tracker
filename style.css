@@ -5,7 +5,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
     "PingFang SC", "Hiragino Sans GB", "Helvetica Neue", sans-serif;
   background: #010101;
-  color: #161616;
+  color: #F0EEEC;
   line-height: 1.4;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -29,7 +29,7 @@ body {
 .header h1 {
   font-size: 2rem;
   font-weight: 700;
-  color: #161616;
+  color: #F0EEEC;
   letter-spacing: -0.02em;
 }
 
@@ -43,7 +43,7 @@ body {
 
 .goal-label {
   font-size: 0.8rem;
-  color: #8A8A8E;
+  color: #9A9A96;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -57,35 +57,35 @@ body {
   border-radius: 8px;
   font-size: 0.82rem;
   text-align: center;
-  background: #EEEDF2;
-  color: #161616;
+  background: #1E1E1E;
+  color: #F0EEEC;
   font-weight: 600;
   outline: none;
   -webkit-appearance: none;
 }
 
-.goal-label input:focus { background: #E0DFE4; }
+.goal-label input:focus { background: #2A2A2A; }
 
 .date-picker {
   padding: 6px 10px;
   border: none;
   border-radius: 8px;
   font-size: 0.85rem;
-  background: #EEEDF2;
-  color: #161616;
+  background: #1E1E1E;
+  color: #F0EEEC;
   outline: none;
   -webkit-appearance: none;
+  color-scheme: dark;
 }
 
-.date-picker:focus { background: #E0DFE4; }
+.date-picker:focus { background: #2A2A2A; }
 
 /* ===== Progress Card ===== */
 .progress-section {
-  background: #FCFBF9;
+  background: #161616;
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 16px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 
 .progress-info {
@@ -94,19 +94,19 @@ body {
   align-items: baseline;
   margin-bottom: 10px;
   font-size: 0.9rem;
-  color: #8A8A8E;
+  color: #9A9A96;
   font-weight: 500;
 }
 
 .progress-info strong {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #161616;
+  color: #F0EEEC;
 }
 
 .progress-bar-track {
   height: 8px;
-  background: #E9E8ED;
+  background: #1E1E1E;
   border-radius: 4px;
   overflow: hidden;
   margin-bottom: 6px;
@@ -122,7 +122,7 @@ body {
 .progress-pct {
   text-align: right;
   font-size: 0.8rem;
-  color: #8A8A8E;
+  color: #9A9A96;
   font-weight: 500;
 }
 
@@ -130,7 +130,7 @@ body {
 .meal-slider {
   position: relative;
   display: flex;
-  background: #E9E8ED;
+  background: #1E1E1E;
   border-radius: 10px;
   padding: 3px;
   margin-bottom: 4px;
@@ -159,7 +159,7 @@ body {
   background: transparent;
   font-size: 0.88rem;
   font-weight: 500;
-  color: #8A8A8E;
+  color: #9A9A96;
   cursor: pointer;
   text-align: center;
   border-radius: 8px;
@@ -175,18 +175,17 @@ body {
 
 /* ===== Add Card ===== */
 .add-section {
-  background: #FCFBF9;
+  background: #161616;
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 16px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 
 .add-section h2 {
   font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 16px;
-  color: #161616;
+  color: #F0EEEC;
 }
 
 .add-form { display: flex; flex-direction: column; gap: 12px; }
@@ -197,16 +196,16 @@ body {
   padding: 12px 14px;
   border: none;
   border-radius: 10px;
-  background: #EEEDF2;
+  background: #1E1E1E;
   font-size: 1rem;
-  color: #161616;
+  color: #F0EEEC;
   outline: none;
   -webkit-appearance: none;
   transition: background 0.2s;
 }
 
-#food-search::placeholder { color: #B0AFB5; }
-#food-search:focus { background: #E0DFE4; }
+#food-search::placeholder { color: #6A6A66; }
+#food-search:focus { background: #2A2A2A; }
 
 /* Food grid */
 .food-grid {
@@ -222,7 +221,7 @@ body {
 .food-grid.visible { display: grid; }
 
 .food-card {
-  background: #EEEDF2;
+  background: #1E1E1E;
   border: 1.5px solid transparent;
   border-radius: 12px;
   padding: 12px 10px;
@@ -232,23 +231,23 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-.food-card:active { background: #E0DFE4; }
+.food-card:active { background: #2A2A2A; }
 
 .food-card.selected {
   border-color: #FF7F38;
-  background: rgba(255, 127, 56, 0.08);
+  background: rgba(255, 127, 56, 0.12);
 }
 
 .food-card-name {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #161616;
+  color: #F0EEEC;
   margin-bottom: 2px;
 }
 
 .food-card-cat {
   font-size: 0.72rem;
-  color: #A0A0A5;
+  color: #7A7A76;
   margin-bottom: 4px;
 }
 
@@ -260,7 +259,7 @@ body {
 
 .food-grid-empty {
   text-align: center;
-  color: #B0AFB5;
+  color: #6A6A66;
   padding: 20px 0;
   font-size: 0.9rem;
   grid-column: 1 / -1;
@@ -281,11 +280,11 @@ body {
   padding: 7px 14px;
   border: none;
   border-radius: 20px;
-  background: #EEEDF2;
+  background: #1E1E1E;
   font-size: 0.82rem;
   font-weight: 500;
   cursor: pointer;
-  color: #8A8A8E;
+  color: #9A9A96;
   transition: all 0.2s;
   -webkit-tap-highlight-color: transparent;
 }
@@ -299,18 +298,18 @@ body {
   padding: 12px 14px;
   border: none;
   border-radius: 10px;
-  background: #EEEDF2;
+  background: #1E1E1E;
   font-size: 1rem;
-  color: #161616;
+  color: #F0EEEC;
   outline: none;
   -webkit-appearance: none;
 }
 
-#grams-input::placeholder { color: #B0AFB5; }
-#grams-input:focus { background: #E0DFE4; }
+#grams-input::placeholder { color: #6A6A66; }
+#grams-input:focus { background: #2A2A2A; }
 
 .unit {
-  color: #8A8A8E;
+  color: #9A9A96;
   font-size: 0.95rem;
   font-weight: 500;
   margin-left: 6px;
@@ -322,13 +321,13 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px 14px;
-  background: rgba(255, 127, 56, 0.06);
+  background: rgba(255, 127, 56, 0.1);
   border-radius: 10px;
   font-size: 0.85rem;
   font-weight: 500;
 }
 
-#food-info-name { color: #161616; font-weight: 600; }
+#food-info-name { color: #F0EEEC; font-weight: 600; }
 
 #food-info-protein {
   color: #FF7F38;
@@ -338,7 +337,7 @@ body {
 /* Protein preview */
 .preview {
   font-size: 0.9rem;
-  color: #8A8A8E;
+  color: #9A9A96;
   padding: 4px 0;
   font-weight: 500;
 }
@@ -369,22 +368,21 @@ body {
 
 /* ===== Records Card ===== */
 .records-section {
-  background: #FCFBF9;
+  background: #161616;
   border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
 
 .records-section h2 {
   font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 14px;
-  color: #161616;
+  color: #F0EEEC;
 }
 
 .empty-hint {
   text-align: center;
-  color: #B0AFB5;
+  color: #6A6A66;
   padding: 36px 0;
   font-size: 0.9rem;
 }
@@ -399,12 +397,12 @@ body {
 .meal-group-header {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #8A8A8E;
+  color: #9A9A96;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 0 0 8px 0;
   margin-bottom: 6px;
-  border-bottom: 0.5px solid #E9E8ED;
+  border-bottom: 0.5px solid #2D2D2D;
   display: flex;
   justify-content: space-between;
 }
@@ -421,7 +419,7 @@ body {
   display: flex;
   align-items: center;
   padding: 12px 0;
-  border-bottom: 0.5px solid #F0EFF4;
+  border-bottom: 0.5px solid #222222;
   font-size: 0.92rem;
 }
 
@@ -429,19 +427,19 @@ body {
 
 .record-food {
   flex: 1;
-  color: #161616;
+  color: #F0EEEC;
   font-weight: 500;
 }
 
 .record-food .food-cat {
   font-size: 0.75rem;
-  color: #A0A0A5;
+  color: #7A7A76;
   margin-left: 6px;
   font-weight: 400;
 }
 
 .record-grams {
-  color: #8A8A8E;
+  color: #9A9A96;
   margin-right: 14px;
   min-width: 56px;
   text-align: right;
@@ -460,7 +458,7 @@ body {
 .record-del {
   background: none;
   border: none;
-  color: #C0BFC5;
+  color: #5A5A56;
   cursor: pointer;
   font-size: 1.3rem;
   padding: 0 0 0 12px;
