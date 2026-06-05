@@ -357,7 +357,7 @@ function renderProgress(totalProtein) {
   } else if (pct >= 90) {
     $progressBar.style.background = '#4ADE80';
   } else {
-    $progressBar.style.background = '#14B8A6';
+    $progressBar.style.background = '#4ADE80';
   }
 }
 
