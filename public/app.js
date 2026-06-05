@@ -239,6 +239,7 @@ $mealSlider.addEventListener('click', (e) => {
   selectMeal(btn.dataset.meal);
 });
 
+updateMealActive(selectedMeal);
 setIndicator(selectedMeal, false);
 window.addEventListener('resize', () => setIndicator(selectedMeal, false));
 
