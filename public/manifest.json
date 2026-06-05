@@ -4,12 +4,12 @@
   "description": "健身饮食蛋白质追踪",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#F2F2F7",
-  "theme_color": "#F2F2F7",
+  "background_color": "#0C1615",
+  "theme_color": "#0C1615",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='110' fill='%2334C759'/><text x='256' y='330' font-size='280' text-anchor='middle' font-family='sans-serif'>🍲</text></svg>",
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='110' fill='%230A554A'/><text x='256' y='330' font-size='280' text-anchor='middle' font-family='sans-serif'>🍲</text></svg>",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"
