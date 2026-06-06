@@ -51,6 +51,8 @@ const foods = [
   // --- 补剂 ---
   { id: 35, name: '乳清蛋白粉',     category: '补剂',   protein: 80.0, fat: 3.0,  carbs: 8.0,  calories: 380, is_builtin: 1 },       // — 通用参考值
   { id: 37, name: '肌酸',           category: '补剂',   protein: 0,   fat: 0,    carbs: 0,    calories: 0,   is_builtin: 1 },       // 一水肌酸，3-5g/日
+  { id: 38, name: '沃急鲜4.0牛奶',  category: '蛋奶',   protein: 4.0,  fat: 3.8,  carbs: 5.0,  calories: 70,  is_builtin: 1, unit: 'ml' }, // 4.0g蛋白质/100ml
+  { id: 40, name: '北海道牛乳吐司', category: '主食',   protein: 9.0,  fat: 4.5,  carbs: 46.0, calories: 265, is_builtin: 1, unit: '片', unit_weight: 26 }, // ≈2.3g蛋白质/片
 ];
 
 module.exports = { foods };
