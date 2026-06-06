@@ -8,8 +8,10 @@ let currentDate = formatDate(new Date());
 let selectedFood = null;
 let selectedMeal = 'lunch';
 let selectedCategory = '';
-let proteinGoal = parseInt(localStorage.getItem('proteinGoal') || '120', 10);
+let proteinGoal = parseInt(localStorage.getItem('proteinGoal') || '100', 10);
 let foodsMap = {}; // id → { unit, unit_weight, name, category }
+let lastRecords = [];
+let lastTotalProtein = 0;
 
 // --- Helpers ---
 function formatDate(d) {
@@ -53,6 +55,7 @@ const $recordsContainer = document.getElementById('records-container');
 const $progressBar = document.getElementById('progress-bar');
 const $progressText = document.getElementById('progress-text');
 const $progressPct = document.getElementById('progress-pct');
+const $btnShare = document.getElementById('btn-share');
 
 // --- Init ---
 $datePicker.value = currentDate;
@@ -333,6 +336,7 @@ function renderRecords(records) {
 }
 
 function renderProgress(totalProtein) {
+  lastTotalProtein = totalProtein;
   const pct = proteinGoal > 0 ? Math.min(100, Math.round((totalProtein / proteinGoal) * 100)) : 0;
   $progressBar.style.width = pct + '%';
   $progressText.textContent = `${totalProtein.toFixed(1)}g / ${proteinGoal}g`;
@@ -363,11 +367,96 @@ async function loadPage() {
       total += r.protein_grams;
     }
     renderProgress(Math.round(total * 10) / 10);
+    lastRecords = records;
     renderRecords(records);
   } catch (e) {
     console.error('加载失败:', e);
   }
 }
+
+// --- Share ---
+const MEAL_LABELS_SHARE = { breakfast: '早餐', lunch: '午餐', dinner: '晚餐', snack: '加餐' };
+const MEAL_ORDER_SHARE = ['breakfast', 'lunch', 'dinner', 'snack'];
+
+function buildShareCard() {
+  const pct = proteinGoal > 0 ? Math.min(100, Math.round((lastTotalProtein / proteinGoal) * 100)) : 0;
+  document.getElementById('share-date').textContent = currentDate;
+  document.getElementById('share-progress-text').innerHTML = `<strong>${lastTotalProtein.toFixed(1)}g</strong> / ${proteinGoal}g 蛋白质`;
+  document.getElementById('share-progress-fill').style.width = pct + '%';
+
+  const groups = {};
+  MEAL_ORDER_SHARE.forEach(m => { groups[m] = []; });
+  lastRecords.forEach(r => {
+    if (groups[r.meal_type]) groups[r.meal_type].push(r);
+  });
+
+  let mealsHtml = '';
+  for (const meal of MEAL_ORDER_SHARE) {
+    const items = groups[meal];
+    if (!items || items.length === 0) continue;
+    mealsHtml += `<div class="share-meal-group">
+      <div class="share-meal-label">${MEAL_LABELS_SHARE[meal]}</div>
+      <div class="share-meal-items">`;
+    for (const r of items) {
+      const food = foodsMap[r.food_id] || {};
+      mealsHtml += `<div class="share-meal-item">
+        <span class="share-meal-food">${food.name || '(已删除)'}</span>
+        <span class="share-meal-grams">${r.grams}${food.unit || 'g'}</span>
+        <span class="share-meal-protein">${r.protein_grams.toFixed(1)}g</span>
+      </div>`;
+    }
+    mealsHtml += '</div></div>';
+  }
+
+  document.getElementById('share-meals').innerHTML = mealsHtml || '<div style="text-align:center;color:#6A6A66;padding:20px">暂无记录</div>';
+}
+
+async function shareImage() {
+  if (lastRecords.length === 0) {
+    alert('暂无记录，请先添加饮食记录');
+    return;
+  }
+
+  $btnShare.disabled = true;
+  $btnShare.textContent = '生成中...';
+
+  try {
+    buildShareCard();
+    const card = document.getElementById('share-card');
+    const canvas = await html2canvas(card, {
+      backgroundColor: '#010101',
+      scale: 2,
+      useCORS: true,
+      logging: false,
+    });
+
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+    const file = new File([blob], `饮食记录_${currentDate}.png`, { type: 'image/png' });
+
+    if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file], title: `饮食记录 ${currentDate}` });
+    } else {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `饮食记录_${currentDate}.png`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  } catch (e) {
+    if (e.name !== 'AbortError') {
+      console.error('分享失败:', e);
+      alert('分享失败: ' + e.message);
+    }
+  } finally {
+    $btnShare.disabled = false;
+    $btnShare.textContent = '分享';
+  }
+}
+
+$btnShare.addEventListener('click', shareImage);
 
 // --- Bootstrap ---
 loadFoodsMap().then(() => {

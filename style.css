@@ -364,11 +364,43 @@ body {
   padding: 20px;
 }
 
+.records-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
 .records-section h2 {
   font-size: 1.05rem;
   font-weight: 600;
-  margin-bottom: 14px;
   color: #F0EEEC;
+  margin-bottom: 0;
+}
+
+/* Share button */
+.btn-share {
+  padding: 6px 16px;
+  border: 1px solid #FF7F38;
+  border-radius: 20px;
+  background: transparent;
+  color: #FF7F38;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  font-family: inherit;
+}
+
+.btn-share:active {
+  background: #FF7F38;
+  color: #FFFFFF;
+}
+
+.btn-share:disabled {
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 .empty-hint {
@@ -459,6 +491,130 @@ body {
 }
 
 .record-del:active { color: #FF3469; }
+
+/* ===== Share Card (hidden, used for screenshot) ===== */
+#share-card {
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  width: 400px;
+  background: #010101;
+  padding: 28px 24px 24px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Helvetica Neue", sans-serif;
+  color: #F0EEEC;
+  -webkit-font-smoothing: antialiased;
+}
+
+.share-card-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.share-card-date {
+  font-size: 0.85rem;
+  color: #9A9A96;
+  margin-bottom: 4px;
+}
+
+.share-card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #F0EEEC;
+  letter-spacing: -0.01em;
+}
+
+.share-card-progress {
+  background: #161616;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.share-card-progress-text {
+  font-size: 0.85rem;
+  color: #9A9A96;
+  margin-bottom: 8px;
+}
+
+.share-card-progress-text strong {
+  color: #F0EEEC;
+  font-size: 1.2rem;
+}
+
+.share-card-progress-bar {
+  height: 6px;
+  background: #1E1E1E;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.share-card-progress-fill {
+  height: 100%;
+  background: #FF7F38;
+  border-radius: 3px;
+}
+
+.share-card-meals {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.share-meal-group {
+  background: #161616;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.share-meal-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #9A9A96;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 0.5px solid #2D2D2D;
+}
+
+.share-meal-items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.share-meal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.share-meal-food {
+  color: #F0EEEC;
+  font-weight: 500;
+}
+
+.share-meal-grams {
+  color: #9A9A96;
+  font-size: 0.8rem;
+  margin-right: 10px;
+}
+
+.share-meal-protein {
+  color: #FF7F38;
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+.share-card-footer {
+  text-align: center;
+  font-size: 0.72rem;
+  color: #5A5A56;
+  padding-top: 8px;
+  border-top: 0.5px solid #1E1E1E;
+}
 
 /* ===== Responsive ===== */
 @media (max-width: 480px) {
