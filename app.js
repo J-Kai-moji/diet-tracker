@@ -163,30 +163,19 @@ async function loadFoodsMap() {
 async function loadCategories() {
   const rows = await api('/foods?select=category');
   const cats = [...new Set(rows.map(r => r.category))];
-  const all = ['', ...cats];
-  const labels = { '': '全部', '蛋奶': '蛋奶', '肉类': '肉类', '水产': '水产', '豆制品': '豆制品', '主食': '主食', '蔬菜': '蔬菜', '坚果': '坚果', '补剂': '补剂' };
-  $categoryFilters.innerHTML = all.map(c =>
+  const labels = { '蛋奶': '蛋奶', '肉类': '肉类', '水产': '水产', '豆制品': '豆制品', '主食': '主食', '蔬菜': '蔬菜', '坚果': '坚果', '补剂': '补剂' };
+  if (!selectedCategory && cats.length > 0) selectedCategory = cats[0];
+  $categoryFilters.innerHTML = cats.map(c =>
     `<button class="cat-btn${c === selectedCategory ? ' active' : ''}" data-cat="${c}">${labels[c] || c}</button>`
   ).join('');
+  if (selectedCategory) loadFoodGrid();
 
   $categoryFilters.querySelectorAll('.cat-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const cat = btn.dataset.cat;
+      if (cat === selectedCategory) return;
       $categoryFilters.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      if (cat === selectedCategory && $foodGrid.classList.contains('visible')) {
-        selectedCategory = '';
-        hideFoodGrid();
-        $categoryFilters.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-        const allBtn = $categoryFilters.querySelector('[data-cat=""]');
-        if (allBtn) allBtn.classList.add('active');
-        return;
-      }
-      if (cat === '') {
-        selectedCategory = '';
-        loadFoodGrid();
-        return;
-      }
       selectedCategory = cat;
       loadFoodGrid();
     });
@@ -276,9 +265,6 @@ $btnAdd.addEventListener('click', async () => {
     $foodInfo.style.display = 'none';
     $proteinPreview.style.display = 'none';
     hideFoodGrid();
-    $categoryFilters.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-    const allBtn = $categoryFilters.querySelector('[data-cat=""]');
-    if (allBtn) allBtn.classList.add('active');
     await loadPage();
   } catch (e) {
     alert('添加失败: ' + e.message);
