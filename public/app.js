@@ -164,16 +164,19 @@ async function loadCategories() {
   const rows = await api('/foods?select=category');
   const cats = [...new Set(rows.map(r => r.category))];
   const labels = { '蛋奶': '蛋奶', '肉类': '肉类', '水产': '水产', '豆制品': '豆制品', '主食': '主食', '蔬菜': '蔬菜', '坚果': '坚果', '补剂': '补剂' };
-  if (!selectedCategory && cats.length > 0) selectedCategory = cats[0];
   $categoryFilters.innerHTML = cats.map(c =>
-    `<button class="cat-btn${c === selectedCategory ? ' active' : ''}" data-cat="${c}">${labels[c] || c}</button>`
+    `<button class="cat-btn" data-cat="${c}">${labels[c] || c}</button>`
   ).join('');
-  if (selectedCategory) loadFoodGrid();
 
   $categoryFilters.querySelectorAll('.cat-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const cat = btn.dataset.cat;
-      if (cat === selectedCategory) return;
+      if (cat === selectedCategory) {
+        selectedCategory = '';
+        $categoryFilters.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        hideFoodGrid();
+        return;
+      }
       $categoryFilters.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       selectedCategory = cat;
