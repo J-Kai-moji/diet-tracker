@@ -586,12 +586,12 @@ body {
 
 .share-meal-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   font-size: 0.85rem;
 }
 
 .share-meal-food {
+  flex: 1;
   color: #F0EEEC;
   font-weight: 500;
 }
@@ -599,13 +599,16 @@ body {
 .share-meal-grams {
   color: #9A9A96;
   font-size: 0.8rem;
-  margin-right: 10px;
+  min-width: 56px;
+  text-align: right;
 }
 
 .share-meal-protein {
   color: #FF7F38;
   font-weight: 600;
   font-size: 0.82rem;
+  min-width: 56px;
+  text-align: right;
 }
 
 .share-card-footer {
