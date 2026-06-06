@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>每日饮食记录</title>
+  <link rel="stylesheet" href="style.css?v=11" />
+  <link rel="manifest" href="manifest.json?v=2" />
+  <meta name="theme-color" content="#010101" />
+</head>
+<body>
+  <div class="container">
+    <!-- 顶部导航 -->
+    <header class="header">
+      <h1>每日饮食记录</h1>
+      <div class="header-right">
+        <label class="goal-label">
+          蛋白质目标 <input type="number" id="protein-goal" value="100" min="20" max="500" step="5" /> g
+        </label>
+        <input type="date" id="date-picker" class="date-picker" />
+      </div>
+    </header>
+
+    <!-- 进度条 -->
+    <section class="progress-section">
+      <div class="progress-info">
+        <span>今日已摄入</span>
+        <span><strong id="progress-text">0g</strong></span>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progress-bar" style="width: 0%"></div>
+      </div>
+      <div class="progress-pct" id="progress-pct">0%</div>
+    </section>
+
+    <!-- 添加记录表单 -->
+    <section class="add-section">
+      <h2>添加饮食记录</h2>
+      <div class="add-form">
+        <!-- 餐次滑动选择器 -->
+        <div class="meal-slider" id="meal-slider">
+          <div class="meal-slider-indicator" id="meal-indicator"></div>
+          <button class="meal-slider-btn" data-meal="breakfast">早餐</button>
+          <button class="meal-slider-btn" data-meal="lunch">午餐</button>
+          <button class="meal-slider-btn" data-meal="dinner">晚餐</button>
+          <button class="meal-slider-btn" data-meal="snack">加餐</button>
+        </div>
+        <div class="form-row categories" id="category-filters">
+          <!-- filled by JS -->
+        </div>
+        <!-- food grid -->
+        <div class="food-grid" id="food-grid"></div>
+        <div class="form-row">
+          <input type="number" id="grams-input" placeholder="克数" min="1" step="0.1" />
+          <span class="unit" id="unit-label">g</span>
+        </div>
+        <div class="form-row food-info" id="food-info" style="display:none">
+          <span id="food-info-name"></span>
+          <span class="food-info-protein">蛋白质 <strong id="food-info-protein">0</strong>g / 100<span id="food-info-unit">g</span></span>
+        </div>
+        <div class="form-row preview" id="protein-preview" style="display:none">
+          预计蛋白质: <strong id="preview-val">0</strong>g
+        </div>
+        <button type="button" class="btn-add" id="btn-add">添加记录</button>
+      </div>
+    </section>
+
+    <!-- 饮食记录列表 -->
+    <section class="records-section" id="records-section">
+      <div class="records-header">
+        <h2>今日饮食记录</h2>
+        <button class="btn-share" id="btn-share" title="分享">分享</button>
+      </div>
+      <div id="records-container">
+        <p class="empty-hint">暂无记录，开始添加吧</p>
+      </div>
+    </section>
+
+    <!-- 分享卡片（隐藏，用于截图） -->
+    <div id="share-card">
+      <div class="share-card-header">
+        <div class="share-card-date" id="share-date"></div>
+        <div class="share-card-title">每日饮食记录</div>
+      </div>
+      <div class="share-card-progress">
+        <div class="share-card-progress-text" id="share-progress-text"></div>
+        <div class="share-card-progress-bar">
+          <div class="share-card-progress-fill" id="share-progress-fill"></div>
+        </div>
+      </div>
+      <div class="share-card-meals" id="share-meals"></div>
+      <div class="share-card-footer">妙想饮食记录</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="app.js?v=17"></script>
+</body>
+</html>
