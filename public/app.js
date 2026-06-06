@@ -433,8 +433,20 @@ async function shareImage() {
     const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
     const file = new File([blob], `饮食记录_${currentDate}.png`, { type: 'image/png' });
 
-    if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({ files: [file], title: `饮食记录 ${currentDate}` });
+    if (navigator.share) {
+      try {
+        await navigator.share({ files: [file], title: `饮食记录 ${currentDate}` });
+      } catch (e) {
+        // Fallback: some browsers support share() but not with files
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `饮食记录_${currentDate}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
     } else {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
